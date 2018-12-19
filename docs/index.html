@@ -1,0 +1,652 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#rhythmjs'
+                  class="">
+                  Rhythm.js
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdurationstring'
+                  class="">
+                  setDurationString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setonlydurationstring'
+                  class="">
+                  setOnlyDurationString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mergerhythmandpitch'
+                  class="">
+                  mergeRhythmAndPitch
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mergedurationsandpitch'
+                  class="">
+                  mergeDurationsAndPitch
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mergedurationvelocityandpitch'
+                  class="">
+                  mergeDurationVelocityAndPitch
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#gettotaltime'
+                  class="">
+                  getTotalTime
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='rhythmjs'>
+      Rhythm.js
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This module is a IIFE (Immediately Invoked Function Expression) and
+it returns a var with the name of Rhythm.  This document contains its public API.
+The Rhythm module contains functions used to manipulate and translate
+Rhythms into different formats used with Tone.js</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>Rhythm.js</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>use the script tag to add <span class="hljs-keyword">this</span> file
+&lt;script src=<span class="hljs-string">"path/to/Rhythm.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdurationstring'>
+      setDurationString
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this stores the duration and noteNames on the Rhythm object</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setDurationString(durationString: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, noteNames: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, whichVoice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>durationString</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>noteNames</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>whichVoice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setonlydurationstring'>
+      setOnlyDurationString
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this stores the duration on the Rhythm object</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setOnlyDurationString(durationString: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, whichVoice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>durationString</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>whichVoice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mergerhythmandpitch'>
+      mergeRhythmAndPitch
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this function merges two arrays into a single array of objects
+used by Tone.js</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>mergeRhythmAndPitch(rhythms: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, pitches: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>rhythms</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pitches</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        the merged data
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mergedurationsandpitch'>
+      mergeDurationsAndPitch
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this function merges two arrays into a single array of objects
+used by Tone.js</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>mergeDurationsAndPitch(durations: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, pitches: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, startTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>durations</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    (array of strings)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pitches</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    (array of strings)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>startTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    (optional)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        the merged data
+
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>parameters: durations - array <span class="hljs-keyword">of</span> duration notation i.e. [<span class="hljs-string">'4n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'4n+8n'</span>,<span class="hljs-string">'8n'</span>]
+            pitches - parallel array <span class="hljs-keyword">of</span> the note names <span class="hljs-keyword">for</span> each duration i.e. [<span class="hljs-string">'A4'</span>,<span class="hljs-string">'C5'</span>,<span class="hljs-string">'C#5'</span>,<span class="hljs-string">'E5'</span>,<span class="hljs-string">'G#4'</span>]
+<span class="hljs-keyword">var</span> noteObjects = mergeDurationsAndPitch(durations, pitches, <span class="hljs-string">'0'</span>);
+<span class="hljs-comment">// array of noteObjects (with three attributes) used in Tone.Part(function(time, value){ }, noteObjects );</span>
+  time = t_array[i] - returned <span class="hljs-keyword">from</span> processDurations(durations)
+  note  = pitches[i]
+  duration = durations[i]
+
+  NOTE:  The note and duration are unpacked <span class="hljs-keyword">in</span> the callback <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">as</span> <span class="hljs-title">value</span>.<span class="hljs-title">note</span> <span class="hljs-title">and</span> <span class="hljs-title">value</span>.<span class="hljs-title">duration</span>
+         <span class="hljs-title">and</span> <span class="hljs-title">are</span> <span class="hljs-title">used</span> <span class="hljs-title">as</span> <span class="hljs-title">parameter</span> <span class="hljs-title">to</span> <span class="hljs-title">the</span> <span class="hljs-title">function</span> 
+         <span class="hljs-title">synth</span>.<span class="hljs-title">triggerAttackRelease</span>(<span class="hljs-params">value.note, value.duration, time</span>)</span></pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mergedurationvelocityandpitch'>
+      mergeDurationVelocityAndPitch
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this function merges three arrays into a single array of objects
+used by Tone.js</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>mergeDurationVelocityAndPitch(durations: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, pitches: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, velocity: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, startTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>durations</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    (array of strings)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pitches</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    (array of strings)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>velocity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    (optional) default = 0.7 (1.0 max)  (array of numbers)
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>startTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    (optional)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        the merged data
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='gettotaltime'>
+      getTotalTime
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>this function return the total time of the currently stored durations</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getTotalTime(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        totalTime
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
