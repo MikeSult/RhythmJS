@@ -119,7 +119,10 @@
   <p>This module is a IIFE (Immediately Invoked Function Expression) and
 it returns a var with the name of Rhythm.  This document contains its public API.
 The Rhythm module contains functions used to manipulate and translate
-Rhythms into different formats used with Tone.js</p>
+Rhythms into different formats used with Tone.js <br><br>
+It will merge parallel arrays of notes, durations and velocities into an array of objects
+for use with the Tone.js <br><br>
+Also adds some support functions for the PlayRhythm page in the PracticeRoom app</p>
 
  
   
@@ -467,8 +470,9 @@ used by Tone.js</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>parameters: durations - array <span class="hljs-keyword">of</span> duration notation i.e. [<span class="hljs-string">'4n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'4n+8n'</span>,<span class="hljs-string">'8n'</span>]
-            pitches - parallel array <span class="hljs-keyword">of</span> the note names <span class="hljs-keyword">for</span> each duration i.e. [<span class="hljs-string">'A4'</span>,<span class="hljs-string">'C5'</span>,<span class="hljs-string">'C#5'</span>,<span class="hljs-string">'E5'</span>,<span class="hljs-string">'G#4'</span>]
+      <pre class='p1 overflow-auto round fill-light'>parameters: durations, ptiches
+<span class="hljs-keyword">var</span> durations = [<span class="hljs-string">'4n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'8n'</span>,<span class="hljs-string">'4n+8n'</span>,<span class="hljs-string">'8n'</span>];
+<span class="hljs-keyword">var</span> pitches = [<span class="hljs-string">'A4'</span>,<span class="hljs-string">'C5'</span>,<span class="hljs-string">'C#5'</span>,<span class="hljs-string">'E5'</span>,<span class="hljs-string">'G#4'</span>];
 <span class="hljs-keyword">var</span> noteObjects = mergeDurationsAndPitch(durations, pitches, <span class="hljs-string">'0'</span>);
 <span class="hljs-comment">// array of noteObjects (with three attributes) used in Tone.Part(function(time, value){ }, noteObjects );</span>
   time = t_array[i] - returned <span class="hljs-keyword">from</span> processDurations(durations)
