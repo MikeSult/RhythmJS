@@ -852,12 +852,20 @@ var Rhythm = (function() {
 	//----------------------------------------------------------
 	
 	// processDurationNotation()
-	//    parameter: duration_array - array of duration notation i.e. ['4n','8n','8n','4n+8n','8n']
+	//    parameter: duration_array - array of duration notation i.e. ['4n','8n','8n','4n.','8n']
 	//
-	//    returns array of duration notation that is cumulative of the input array 
-	//      suitable for use of time parameter with synth.triggerAttackRelease() 
-	//      i.e. processDurations(['4n','8n','8n','4n+8n','8n']) returns ["0", "4n", "4n + 8n", "2n", "2n + 4n + 8n", "1m"]
+	//    returns array of time values in seconds that is cumulative of the input array 
+	//      suitable for use of time parameter with synth.triggerAttackRelease()
+	//      assuming tempo is 60
+	//      i.e. processDurations(['4n','8n','8n','4n.','8n']) returns [0, 1, 1.5, 2, 3.5, 4]
 	//
+    /**
+     * this function takes an array of duration notation and creates an array of 
+     * cummlative values used by Tone.js
+     * @param {object} duration_array (array of strings)
+     * @param {number} startTime
+     * @returns {object} the array of cummlative values in seconds
+     */
 	function processDurationNotation(duration_array, startTime) {
 		if(startTime == undefined)
 			var myStartTime = 0;
@@ -932,7 +940,6 @@ var Rhythm = (function() {
 
 
     // this function adds the durations of an array to create a single duration
-
     function processDurationArrays(durs) {
         var durations = []; 
         for(let i = 0; i < durs.length; i++) {
