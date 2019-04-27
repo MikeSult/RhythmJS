@@ -3,6 +3,7 @@
 //
 // to create documentation:
 // %: cd ~/Documents/HTML/RhythmJS
+// %: cd ~/Documents/Github/RhythmJS
 // %: documentation build Rhythm.js -f html -o docs
 
 // functions for setting durations in Tone.js functions
@@ -214,7 +215,37 @@ var Rhythm = (function() {
 		"-18": "alt+0228+.", "-12": "alt+0228", "-8": "alt+0228t",
 		"-9": "alt+0197+.", "-6": "alt+0197", "-4": "alt+0197t"
 	};
+
+	var numbersToNotation = {
+		"96": "1m", 
+		"72": "2n.", "48": "2n", "32": "2t",
+		"36": "4n.", "24": "4n", "16": "4t",
+		"18": "8n.", "12": "8n", "8": "8t",
+		"9": "16n.", "6": "16n", "4": "16t",
 	
+		"-96": "1mr", 
+		"-72": ["2nr","4nr"], "-48": "2nr", "-32": "2tr",
+		"-36": ["4nr","8nr"], "-24": "4nr", "-16": "4tr",
+		"-18": ["8nr","16nr"], "-12": "8nr", "-8": "8tr",
+		"-9": ["16nr","32nr"], "-6": "16nr", "-4": "16tR"
+	};
+
+/*----------------------------------------------
+	var numbersToNotation = {
+		"96": "1m", 
+		"72": ["2n","4n"], "48": "2n", "32": "2t",
+		"36": ["4n","8n"], "24": "4n", "16": "4t",
+		"18": ["8n","16n"], "12": "8n", "8": "8t",
+		"9": ["16n","32n"], "6": "16n", "4": "16t",
+	
+		"-96": "1mr", 
+		"-72": ["2nr","4nr"], "-48": "2nr", "-32": "2tr",
+		"-36": ["4nr","8nr"], "-24": "4nr", "-16": "4tr",
+		"-18": ["8nr","16nr"], "-12": "8nr", "-8": "8tr",
+		"-9": ["16nr","32nr"], "-6": "16nr", "-4": "16tR"
+	};
+//--------------------------------------------------*/
+
 	var numbersToFinaleFontDownStem = {
 		"96": "w", 
 		"72": "H.", "48": "H", "32": "Ht",
@@ -273,6 +304,29 @@ var Rhythm = (function() {
 		return translateRhythmArrayToDurations(durationCode);
 	}
 	
+	function getNotationArray(whichVoice) {
+		var durationCode;
+		var notes;
+		if(whichVoice === 1) {
+			durationCode = myDurationCode1;
+			notes = myNoteNames1;
+		} else if(whichVoice === 2) {
+			durationCode = myDurationCode2;
+			notes = myNoteNames2;
+		} else if(whichVoice === 3) {
+			durationCode = myDurationCode3;
+			notes = myNoteNames3;
+		} else if(whichVoice === 4) {
+			durationCode = myDurationCode4;
+			notes = myNoteNames4;
+		} else {
+			durationCode = myDurationCode1;        
+			notes = myNoteNames1;
+		}
+		return translateRhythmArrayToNotation(durationCode);
+	}
+
+
 // whichVoice is one (not zero) indexed, AND any whichVoice value other than 1,2,3,4 will default to voice 1
 /**
  * this stores the duration and noteNames on the Rhythm object
@@ -349,7 +403,7 @@ var Rhythm = (function() {
 	
 	
 	
-	function translateRhythmArrayToDurations(rhythmArray, notes) {
+	function translateRhythmArrayToDurations(rhythmArray) {
 		var stringArray = [];
 		for(var i=0; i<rhythmArray.length; i++) {
 			var stringNumber = rhythmArray[i].toString();
@@ -358,6 +412,18 @@ var Rhythm = (function() {
 		}
 		return stringArray;
 	}
+
+
+	function translateRhythmArrayToNotation(rhythmArray) {
+		var stringArray = [];
+		for(var i=0; i<rhythmArray.length; i++) {
+			var stringNumber = rhythmArray[i].toString();
+			var duration = numbersToNotation[stringNumber];
+			stringArray.push(duration);  
+		}
+		return stringArray;
+	}
+
 	
 	function adjustRhythmLength(stringOfRhythms, pitches) {
 		var arrayOfRhythms = [];
@@ -427,7 +493,11 @@ var Rhythm = (function() {
 			durationCode = myDurationCode1;        
 			notes = myNoteNames1;
 		}
-		return createMelodyWithRhythm(durationCode, notes)
+		return createMelodyWithRhythm(durationCode, notes);
+//		console.log('durationCode='+durationCode+' typeof(durationCode)='+typeof(durationCode));
+//		var rhythms = createDurationArray(durationCode);
+//		console.log('rhythms='+rhythms);
+//		return mergeDurationsAndPitch(rhythms, notes, 0);
 	}
 	
 	function createMelodyWithRhythm(arrayOfRhythms, pitches) {
@@ -478,6 +548,15 @@ var Rhythm = (function() {
 		}
 		return rhythms;    
 	}
+
+    function createNotationArray(arrayOfNumbers) {
+        var rhythms = [];
+        var myArray = arrayOfNumbers.split(',');
+        for(var i = 0; i<myArray.length; i++) {
+            rhythms.push(numbersToRhythmText[myArray[i]])
+        }
+        return rhythms;
+    }
 	
 	function createRhythmWithEighths(arrayOfRhythms) {
 		var quartersPerMeasure = 4;
@@ -781,54 +860,107 @@ var Rhythm = (function() {
 	//
 	function processDurationNotation(duration_array, startTime) {
 		if(startTime == undefined)
-			var myStartTime = "0";
+			var myStartTime = 0;
 		else
 			var myStartTime = startTime;
 		
 		var nextIsRest = false;
 		var restValue = '';
 		var t = Tone.Time(startTime);  // holds the current accumulated time
+//		var t = Tone.TransportTime(startTime);  // holds the current accumulated time
 		var t_array = [];
-		t_array.push(t.toNotation());
-		var accum = "";  // holds the accumulated time for associated note's start time (notes and durations are parallel array)  
-	
+		t_array.push(t.toSeconds());
+		var accum;  // holds the accumulated time for associated note's start time (notes and durations are parallel array)  
+	    var current_duration = 0;
+	    var current_duration_is_rest = false;
 		// the first element is the duration of the first note, but that note starts at time zero which as
 		// already been added to t_array so the value of duration_array[0]
 		// is the start time of notes[1] (if there aren't any rest to consider).
 		// in other words duration_array[i] is setting the start time for NEXT note (i+1 of the parallel notes array)
 		// this is tricky.
 		for(let i=0; i<duration_array.length; i++) {
+		    console.log('typeof(duration_array['+i+'])='+typeof(duration_array[i])+' duration_array['+i+']='+duration_array[i]);
+		    var current_dur_is_array = typeof(duration_array[i]) === 'object'? true: false;
+            if(current_dur_is_array) {                
+                // add the values together
+                for(let idx=0; idx < duration_array[i].length; idx++) {
+                    var array_value = duration_array[i][idx];
+                    current_duration = current_duration + Tone.Time(array_value);
+                    current_duration_is_rest = duration_array[i][idx].includes("r")
+                }
+            } else {
+                current_duration = duration_array[i];
+                current_duration_is_rest = duration_array[i].includes("r");
+            }
+
 			// check if the next element in the array is a rest
-			if(i<(duration_array.length-2) && duration_array[i+1].includes("r") ) {
+			if(i<(duration_array.length-2) && typeof(duration_array[i+1] === 'string') && duration_array[i+1].includes("r") ) {
+				nextIsRest = true;
+			} else if(i<(duration_array.length-2) && typeof(duration_array[i+1] === 'object') && duration_array[i+1][0].includes("r") ) {
 				nextIsRest = true;
 			} else {
 				nextIsRest = false;  
 			}
 	
 			// if current loop isn't rest (it's a note)
-			if(duration_array[i].includes("r") === false) {
-				accum = t.add(duration_array[i]);
+			if(current_duration_is_rest === false) {
+				accum = Tone.Time( t + Tone.Time(current_duration) );
 				if( !nextIsRest ) {
 					// add accum to t_array, reset for repeat
-					t_array.push( accum.toNotation() );
+					t_array.push( accum.valueOf() );
 				}
 				t = Tone.Time( accum.valueOf() );   
 			}
 			else { // current loop is a rest
-				restValue = processRestNotation(duration_array[i]);
-				accum = t.add(restValue);
+				restValue = processRestNotation(current_duration);
+				accum = Tone.Time( t + Tone.Time(restValue) );
 				if(i===0) { // if the first duration is a rest, clear t_array
 					t_array = [];				
 				}
 				if( !nextIsRest ) {
 					// add accum to t_array, reset for repeat
-					t_array.push( accum.toNotation() );
+					t_array.push( accum.valueOf() );
 				}
 				t = Tone.Time( accum.valueOf() );
-			}            
+			}
+			current_duration_is_rest = false;
+			nextIsRest = false;
+			current_duration = 0;
 		}
 		return t_array;
 	}
+
+
+    // this function adds the durations of an array to create a single duration
+
+    function processDurationArrays(durs) {
+        var durations = []; 
+        for(let i = 0; i < durs.length; i++) {
+            var current_dur_is_array = typeof(durs[i]) === 'object'? true: false;
+            if(current_dur_is_array) { 
+                durations.push(processDurationArrayIntoSingleDuration(durs[i]))            
+            } else {
+                durations.push(durs[i])
+            }
+        }
+        return durations;
+    }
+    
+    
+    function processDurationArrayIntoSingleDuration(duration_array) {
+        var single_duration = 0;
+        var duration;
+        var is_rest = false;
+        for(let i=0; i < duration_array.length; i++) {
+            single_duration = Tone.Time(single_duration + Tone.Time(duration_array[i]));
+            is_rest = duration_array[i].includes("r")? true: false;
+        }
+        duration = single_duration.toNotation();
+        if(is_rest) {
+            duration = duration + "r" 
+        }
+        return duration;
+    }
 	
 	// this function removes the 'r' from rest notation
 	function processRestNotation(restNotationValue) {
@@ -875,14 +1007,15 @@ var Rhythm = (function() {
 		if(pitches == "")
 			return undefined;
 		if(startTime == undefined)
-			var myStartTime = "0";
+			var myStartTime = 0;
 		else
 			var myStartTime = startTime;
 	
 		var melody = [];
 		var rhythmValue;
 		var time_array = processDurationNotation(durations, myStartTime);
-		var myDurations = removeRestsFromDurations(durations);
+		var all_durations = processDurationArrays(durations);
+		var myDurations = removeRestsFromDurations(all_durations);
 		var j = 0;
 		for(var i=0; i<pitches.length; i++) {
 			// loop thru the rhythm array until the pitch array is completed.
@@ -927,7 +1060,9 @@ var Rhythm = (function() {
 			j++;
 			lastDuration = myDurations[i];
 		}
-		totalTime = rhythmValue + " + " + lastDuration;
+//		totalTime = rhythmValue + " + " + lastDuration;
+//		totalTime = rhythmValue + Tone.Time(lastDuration).valueOf();
+		totalTime = rhythmValue + Tone.TransportTime(lastDuration).valueOf();
 		return melody;
 	}
 	
@@ -947,7 +1082,7 @@ var Rhythm = (function() {
 	
 		var myStartTime;
 		if(startTime == undefined)
-			myStartTime = "0";
+			myStartTime = 0;
 		else
 			myStartTime = startTime;
 	
@@ -955,7 +1090,8 @@ var Rhythm = (function() {
 		var rhythmValue;
 		var velocityValue;
 		var time_array = processDurationNotation(durations, myStartTime);
-		var myDurations = removeRestsFromDurations(durations);
+		var all_durations = processDurationArrays(durations);
+		var myDurations = removeRestsFromDurations(all_durations);
 		var j = 0;
 		for(var i=0; i<pitches.length; i++) {
 			var oneNote = {};
@@ -1032,11 +1168,13 @@ var Rhythm = (function() {
 		setOnlyDurationString: setOnlyDurationString,
 		setDurationString: setDurationString,
 		getDurationArray: getDurationArray,
+        getNotationArray: getNotationArray,
 		getMelodyWithRhythm: getMelodyWithRhythm,
 		mergeDurationsAndPitch: mergeDurationsAndPitch,
 		mergeDurationVelocityAndPitch: mergeDurationVelocityAndPitch,
 		createArrayFromString: createArrayFromString,
 		createStringArrayFromString: createStringArrayFromString,
+		createNotationArray: createNotationArray,
 		getTotalTime: getTotalTime
 	};
 
@@ -1047,6 +1185,12 @@ var Rhythm = (function() {
 //-----------------------------------------------------
 // -------- end rhythm functions ----------------------
 //-----------------------------------------------------
+
+/*---------------------------------------------------------------------
+Time('4n') * 2 + Time('3t') 
+instead of 
+Time('4n * 2 + 3t')
+//--------------------------------------------------------------------*/
 
 // ----------------------------------------------------
 // ------- some example note arrays -------------------
